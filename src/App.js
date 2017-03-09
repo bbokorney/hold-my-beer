@@ -12,6 +12,17 @@ class App extends React.Component {
   }
 
   handleFilterTextInput = (filterText) => {
+    if (!filterText) {
+      this.setState({
+        filterText: '',
+        results: []
+      });
+      return;
+    }
+
+    this.setState({
+      filterText: filterText
+    });
     this.doSearch(filterText);
   }
 
@@ -20,19 +31,18 @@ class App extends React.Component {
     oReq.addEventListener("load", (e) => {
       const response = JSON.parse(e.target.response);
       console.log(response);
-      const results = response.hits.hit.map((item) => item.fields);
+      const results = response.suggest.suggestions;
       this.setState({
-        filterText: filterText,
         results: results
       });
     });
-    oReq.open("GET", process.env.REACT_APP_SEARCH_URL + "/?q=" + filterText);
+    oReq.open("GET", process.env.REACT_APP_SEARCH_URL + "/suggest/?suggester=name&q=" + filterText);
     oReq.send();
   }
 
   render() {
     const listItems = this.state.results.map((result) => {
-      return <li key={result.id}>{result.name} - {result.city}, {result.state}</li>
+      return <li key={result.id}>{result.suggestion}</li>
     });
     return (
       <div className="App">
