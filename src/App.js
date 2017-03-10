@@ -2,13 +2,15 @@ import React from 'react';
 import './App.css';
 import SearchBar from './SearchBar.js';
 import SuggestionList from './SuggestionList.js';
+import SearchResultList from './SearchResultList.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchText: '',
-      suggestionResults: []
+      suggestionResults: [],
+      searchResults: []
     };
   }
 
@@ -24,14 +26,13 @@ class App extends React.Component {
     this.setState({
       searchText: searchText
     });
-    this.doSearch(searchText);
+    this.fetchSuggestions(searchText);
   }
 
-  doSearch = (searchText) => {
+  fetchSuggestions = (searchText) => {
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", (e) => {
       const response = JSON.parse(e.target.response);
-      console.log(response);
       const suggestionResults = response.suggest.suggestions;
       this.setState({
         suggestionResults: suggestionResults
@@ -45,6 +46,20 @@ class App extends React.Component {
     this.setState({
       searchText: suggestion
     });
+    this.fetchSearchResults(suggestion);
+  }
+
+  fetchSearchResults = (searchText) => {
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", (e) => {
+      const response = JSON.parse(e.target.response);
+      const searchResults = response.hits.hit.map((item) => item.fields);
+      this.setState({
+        searchResults: searchResults
+      });
+    });
+    oReq.open("GET", process.env.REACT_APP_SEARCH_URL + "/search/?q=" + searchText);
+    oReq.send();
   }
 
   render() {
@@ -57,6 +72,9 @@ class App extends React.Component {
         <SuggestionList
           suggestions={this.state.suggestionResults}
           handleSuggestionClick={this.handleSuggestionClick}
+        />
+        <SearchResultList
+          results={this.state.searchResults}
         />
       </div>
     );
