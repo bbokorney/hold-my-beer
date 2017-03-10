@@ -62,12 +62,17 @@ class App extends React.Component {
     oReq.send();
   }
 
+  handleSearchTextSubmit = (e) => {
+    this.fetchSearchResults(this.state.searchText);
+  }
+
   render() {
     return (
       <div className="App">
         <SearchBar
           searchText={this.state.searchText}
           onSearchTextInput={this.handleSearchTextInput}
+          onSearchTextSubmit={this.handleSearchTextSubmit}
         />
         <SuggestionList
           suggestions={this.state.suggestionResults}
