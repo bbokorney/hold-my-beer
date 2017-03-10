@@ -2,7 +2,7 @@ import React from 'react';
 
 class SearchBar extends React.Component {
   handleFilterTextInputChange = (e) => {
-    this.props.onFilterTextInput(e.target.value);
+    this.props.onSearchTextInput(e.target.value);
   }
 
   render() {

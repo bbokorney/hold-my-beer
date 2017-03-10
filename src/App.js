@@ -1,58 +1,61 @@
 import React from 'react';
 import './App.css';
 import SearchBar from './SearchBar.js';
+import SuggestionList from './SuggestionList.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterText: '',
-      results: []
+      searchText: '',
+      suggestionResults: []
     };
   }
 
-  handleFilterTextInput = (filterText) => {
-    if (!filterText) {
+  handleSearchTextInput = (searchText) => {
+    if (!searchText) {
       this.setState({
-        filterText: '',
-        results: []
+        searchText: '',
+        suggestionResults: []
       });
       return;
     }
 
     this.setState({
-      filterText: filterText
+      searchText: searchText
     });
-    this.doSearch(filterText);
+    this.doSearch(searchText);
   }
 
-  doSearch = (filterText) => {
+  doSearch = (searchText) => {
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", (e) => {
       const response = JSON.parse(e.target.response);
       console.log(response);
-      const results = response.suggest.suggestions;
+      const suggestionResults = response.suggest.suggestions;
       this.setState({
-        results: results
+        suggestionResults: suggestionResults
       });
     });
-    oReq.open("GET", process.env.REACT_APP_SEARCH_URL + "/suggest/?suggester=name&q=" + filterText);
+    oReq.open("GET", process.env.REACT_APP_SEARCH_URL + "/suggest/?suggester=name&q=" + searchText);
     oReq.send();
   }
 
+  handleSuggestionClick = (suggestion) => {
+    console.log("Suggestion clicked", suggestion);
+  }
+
   render() {
-    const listItems = this.state.results.map((result) => {
-      return <li key={result.id}>{result.suggestion}</li>
-    });
     return (
       <div className="App">
         <SearchBar
-          filterText={this.state.filterText}
-          onFilterTextInput={this.handleFilterTextInput}
+          searchText={this.state.searchText}
+          onSearchTextInput={this.handleSearchTextInput}
         />
-        <ol>
-          {listItems}
-        </ol>
+        <SuggestionList
+          suggestions={this.state.suggestionResults}
+          handleSuggestionClick={this.handleSuggestionClick}
+        />
       </div>
     );
   }
