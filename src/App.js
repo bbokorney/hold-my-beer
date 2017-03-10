@@ -42,7 +42,9 @@ class App extends React.Component {
   }
 
   handleSuggestionClick = (suggestion) => {
-    console.log("Suggestion clicked", suggestion);
+    this.setState({
+      searchText: suggestion
+    });
   }
 
   render() {

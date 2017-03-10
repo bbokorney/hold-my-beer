@@ -1,7 +1,7 @@
 import React from 'react';
 
 class SearchBar extends React.Component {
-  handleFilterTextInputChange = (e) => {
+  handleSearchTextInput = (e) => {
     this.props.onSearchTextInput(e.target.value);
   }
 
@@ -11,8 +11,8 @@ class SearchBar extends React.Component {
         <input
           type="text"
           placeholder="Search..."
-          value={this.props.filterText}
-          onChange={this.handleFilterTextInputChange}
+          value={this.props.searchText}
+          onChange={this.handleSearchTextInput}
         />
       </form>
     );
