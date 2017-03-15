@@ -34,6 +34,12 @@ class App extends React.Component {
     fetch(url)
     .then(resp => resp.json())
     .then(results => {
+      // check that the search text is
+      // for this query
+      if(results.suggest.query !== this.state.searchText) {
+        // if not, no need to update the results
+        return;
+      }
       const suggestionResults = results.suggest.suggestions;
       this.setState({
         suggestionResults: suggestionResults
@@ -53,6 +59,12 @@ class App extends React.Component {
     fetch(url)
     .then(resp => resp.json())
     .then(results => {
+      // check that the search text is
+      // for this query
+      if(searchText !== this.state.searchText) {
+        // if not, no need to update the results
+        return;
+      }
       const searchResults = results.hits.hit.map((item) => item.fields);
       this.setState({
         searchResults: searchResults
