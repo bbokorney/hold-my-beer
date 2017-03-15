@@ -30,16 +30,15 @@ class App extends React.Component {
   }
 
   fetchSuggestions = (searchText) => {
-    var oReq = new XMLHttpRequest();
-    oReq.addEventListener("load", (e) => {
-      const response = JSON.parse(e.target.response);
-      const suggestionResults = response.suggest.suggestions;
+    const url = process.env.REACT_APP_SEARCH_URL + "/suggest/?suggester=name&q=" + searchText;
+    fetch(url)
+    .then(resp => resp.json())
+    .then(results => {
+      const suggestionResults = results.suggest.suggestions;
       this.setState({
         suggestionResults: suggestionResults
       });
     });
-    oReq.open("GET", process.env.REACT_APP_SEARCH_URL + "/suggest/?suggester=name&q=" + searchText);
-    oReq.send();
   }
 
   handleSuggestionClick = (suggestion) => {
@@ -50,16 +49,15 @@ class App extends React.Component {
   }
 
   fetchSearchResults = (searchText) => {
-    var oReq = new XMLHttpRequest();
-    oReq.addEventListener("load", (e) => {
-      const response = JSON.parse(e.target.response);
-      const searchResults = response.hits.hit.map((item) => item.fields);
+    const url = process.env.REACT_APP_SEARCH_URL + "/search/?q=" + searchText
+    fetch(url)
+    .then(resp => resp.json())
+    .then(results => {
+      const searchResults = results.hits.hit.map((item) => item.fields);
       this.setState({
         searchResults: searchResults
       });
     });
-    oReq.open("GET", process.env.REACT_APP_SEARCH_URL + "/search/?q=" + searchText);
-    oReq.send();
   }
 
   handleSearchTextSubmit = (e) => {
