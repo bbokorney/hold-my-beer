@@ -55,7 +55,7 @@ class App extends React.Component {
   }
 
   fetchSearchResults = (searchText) => {
-    const url = process.env.REACT_APP_SEARCH_URL + "/search/?q=" + searchText
+    const url = process.env.REACT_APP_SEARCH_URL + "/search/?q=" + searchText + "*";
     fetch(url)
     .then(resp => resp.json())
     .then(results => {
