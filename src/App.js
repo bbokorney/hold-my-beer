@@ -55,7 +55,7 @@ class App extends React.Component {
   }
 
   fetchSearchResults = (searchText) => {
-    const url = process.env.REACT_APP_SEARCH_URL + "/search/?q=" + searchText + "*";
+    const url = process.env.REACT_APP_SEARCH_URL + "/search/?q=" + searchText;
     fetch(url)
     .then(resp => resp.json())
     .then(results => {
@@ -65,7 +65,11 @@ class App extends React.Component {
         // if not, no need to update the results
         return;
       }
-      const searchResults = results.hits.hit.map((item) => item.fields);
+      const searchResults = results.hits.hit.map((item) => {
+        var obj = item.fields;
+        obj['id'] = item.id;
+        return obj
+      });
       this.setState({
         searchResults: searchResults
       });
