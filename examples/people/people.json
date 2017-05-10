@@ -1,0 +1,47 @@
+[
+  {
+    "type": "add",
+    "id": 1,
+    "fields": {
+      "first": "Dennis",
+      "last": "Reynolds",
+      "gender": "m"
+    }
+  },
+  {
+    "type": "add",
+    "id": 2,
+    "fields": {
+      "first": "Deandra",
+      "last": "Reynolds",
+      "gender": "f"
+    }
+  },
+  {
+    "type": "add",
+    "id": 3,
+    "fields": {
+      "first": "Charlie",
+      "last": "Kelly",
+      "gender": "m"
+    }
+  },
+  {
+    "type": "add",
+    "id": 4,
+    "fields": {
+      "first": "Frank",
+      "last": "Reynolds",
+      "gender": "m"
+    }
+  },
+  {
+    "type": "add",
+    "id": 5,
+    "fields": {
+      "first": "Ronald",
+      "last": "McDonald",
+      "gender": "m"
+    }
+  }
+]

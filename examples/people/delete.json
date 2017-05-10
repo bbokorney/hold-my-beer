@@ -1,0 +1,23 @@
+
+[
+  {
+    "type": "delete",
+    "id": 1
+  },
+  {
+    "type": "delete",
+    "id": 2
+  },
+  {
+    "type": "delete",
+    "id": 3
+  },
+  {
+    "type": "delete",
+    "id": 4
+  },
+  {
+    "type": "delete",
+    "id": 5
+  }
+]
