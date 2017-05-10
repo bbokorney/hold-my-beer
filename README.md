@@ -44,3 +44,7 @@ Install dependencies and start the project.
 npm install
 npm start
 ```
+
+## Credits
+
+Beer stein favicon from [freefavicon.com](https://www.freefavicon.com/freefavicons/food/iconinfo/beer-stein-152-202218.html).

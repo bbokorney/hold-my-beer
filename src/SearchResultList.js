@@ -1,21 +1,30 @@
 import React from 'react';
+import './SearchResultList.css';
 
 function SearchResultList(props) {
   const listItems = props.results.map((result) => {
     return (
-      <li key={result.id}>
-        <p>{result.name} - {result.brewery}</p>
-        <p> {result.style}, {result.category} - {result.abv}% ABV, {result.ibu} IBU</p>
-        <p>{result.description}</p>
-      </li>
+      <div className="SearchResult-item" key={result.id}>
+        <div className="SearchResult-wrapper">
+          <div className="SearchResult-summary">
+            <span className="SearchResultList-name">{result.name}</span>
+            <span>{result.brewery}</span>
+            <span>{result.style}</span>
+            <span>{result.category}</span>
+            <span>{result.abv}% ABV</span>
+            <span>{result.ibu} IBU</span>
+          </div>
+          <div className="SearchResult-description">
+            <span>{result.description}</span>
+          </div>
+        </div>
+      </div>
     );
   });
   return (
-    <div>
+    <div className="SearchResultList-list">
       <p>Search results</p>
-      <ul>
-        {listItems}
-      </ul>
+      {listItems}
     </div>
   );
 }

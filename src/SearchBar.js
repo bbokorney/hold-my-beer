@@ -1,4 +1,5 @@
 import React from 'react';
+import './SearchBar.css';
 
 class SearchBar extends React.Component {
   handleSearchTextInput = (e) => {
@@ -14,6 +15,7 @@ class SearchBar extends React.Component {
     return (
       <form onSubmit={this.handleSearchTextSubmit}>
         <input
+          className="SearchBar-input"
           type="text"
           placeholder="Search..."
           value={this.props.searchText}

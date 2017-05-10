@@ -1,0 +1,9 @@
+.SearchBar-input {
+  height: 1.35rem;
+  background-color: #FAFAFA;
+  width: 700px;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: .25rem;
+  padding: .25rem;
+  font-size: 1.0em;
+}
