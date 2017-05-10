@@ -1,0 +1,21 @@
+.SuggestionList-list {
+  margin-top: 0px;
+  margin-bottom: 1rem;
+  background-color: #FAFAFA;
+  width: 700px;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: .25rem;
+  padding: .25rem;
+
+  position: absolute;
+}
+
+.SuggestionList-list:empty {
+  display: none;
+}
+
+.SuggestionList-item {
+  cursor: default;
+  text-align: left;
+  list-style: none;
+}

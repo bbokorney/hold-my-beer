@@ -7,3 +7,9 @@
   padding: .25rem;
   font-size: 1.0em;
 }
+
+.SearchBar-container {
+  position: relative;
+  width: 700px;
+  margin: auto;
+}

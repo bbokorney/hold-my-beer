@@ -1,4 +1,5 @@
 import React from 'react';
+import SuggestionList from './SuggestionList.js';
 import './SearchBar.css';
 
 class SearchBar extends React.Component {
@@ -13,15 +14,21 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSearchTextSubmit}>
-        <input
-          className="SearchBar-input"
-          type="text"
-          placeholder="Search..."
-          value={this.props.searchText}
-          onChange={this.handleSearchTextInput}
+      <div className="SearchBar-container">
+        <form onSubmit={this.handleSearchTextSubmit}>
+          <input
+            className="SearchBar-input"
+            type="text"
+            placeholder="Search..."
+            value={this.props.searchText}
+            onChange={this.handleSearchTextInput}
+          />
+        </form>
+        <SuggestionList
+          suggestions={this.props.suggestions}
+          handleSuggestionClick={this.props.handleSuggestionClick}
         />
-      </form>
+      </div>
     );
   }
 }

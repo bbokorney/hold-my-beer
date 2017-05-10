@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import SearchBar from './SearchBar.js';
-import SuggestionList from './SuggestionList.js';
 import SearchResultList from './SearchResultList.js';
 
 class App extends React.Component {
@@ -24,7 +23,7 @@ class App extends React.Component {
     }
 
     this.setState({
-      searchText: searchText
+      searchText: searchText,
     });
     this.fetchSuggestions(searchText);
   }
@@ -71,7 +70,8 @@ class App extends React.Component {
         return obj
       });
       this.setState({
-        searchResults: searchResults
+        searchResults: searchResults,
+        suggestionResults: []
       });
     });
   }
@@ -87,8 +87,6 @@ class App extends React.Component {
           searchText={this.state.searchText}
           onSearchTextInput={this.handleSearchTextInput}
           onSearchTextSubmit={this.handleSearchTextSubmit}
-        />
-        <SuggestionList
           suggestions={this.state.suggestionResults}
           handleSuggestionClick={this.handleSuggestionClick}
         />
