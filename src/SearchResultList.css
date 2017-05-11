@@ -28,6 +28,11 @@
   text-align: left;
 }
 
+.SearchResult-description > span > em {
+  font-weight: bold;
+  font-style: normal;
+}
+
 .SearchResult-wrapper {
   display: flex;
   flex-direction: row;

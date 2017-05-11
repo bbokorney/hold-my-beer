@@ -15,7 +15,12 @@ class App extends React.Component {
     };
   }
 
-  searchUrl = (params) => {
+  searchUrl = (searchText, start = 0) => {
+    const params = {
+      q: searchText,
+      start: start,
+      "highlight.description": "{}"
+    };
     return process.env.REACT_APP_SEARCH_URL + "/search/?"
     + queryString.stringify(params);
   }
@@ -69,12 +74,15 @@ class App extends React.Component {
     return results.hits.hit.map((item) => {
         var obj = item.fields;
         obj['id'] = item.id;
+        if(item.highlights && item.highlights.description) {
+          obj['description'] = item.highlights.description;
+        }
         return obj
       });
   }
 
   fetchSearchResults = (searchText) => {
-    const url = this.searchUrl({q: searchText});
+    const url = this.searchUrl(searchText);
     fetch(url)
     .then(resp => resp.json())
     .then(results => {
@@ -99,7 +107,7 @@ class App extends React.Component {
 
   handleMoreSubmit = (e) => {
     const searchIndex = this.state.searchStartIndex + 10;
-    const url = this.searchUrl({q: this.state.searchText, start: searchIndex});
+    const url = this.searchUrl(this.state.searchText, searchIndex);
     fetch(url)
     .then(resp => resp.json())
     .then(results => {

@@ -15,7 +15,7 @@ function SearchResultList(props) {
             <span>{result.ibu} IBU</span>
           </div>
           <div className="SearchResult-description">
-            <span>{result.description}</span>
+            <span dangerouslySetInnerHTML={{ __html: result.description }}></span>
           </div>
         </div>
       </div>
