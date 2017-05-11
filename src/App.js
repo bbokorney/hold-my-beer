@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import SearchUrl from './SearchUrl.js';
 import SearchBar from './SearchBar.js';
 import SearchResultList from './SearchResultList.js';
 const queryString = require('query-string');
@@ -123,6 +124,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <SearchUrl searchUrl={this.searchUrl(this.state.searchText, this.state.searchStartIndex)} />
+        <SearchUrl searchUrl={this.suggestionUrl(this.state.searchText)} />
         <SearchBar
           searchText={this.state.searchText}
           onSearchTextInput={this.handleSearchTextInput}
