@@ -5,7 +5,7 @@ function SearchUrl(props) {
   const searchUrl = decodeURI(props.searchUrl.substring(59));
   return (
     <div className="SearchUrl">
-      {searchUrl}
+      <code>{searchUrl}</code>
     </div>
   );
 }
