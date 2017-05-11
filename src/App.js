@@ -9,8 +9,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       searchText: '',
+      searchStartIndex: 0,
       suggestionResults: [],
-      searchResults: []
+      searchResults: [],
     };
   }
 
@@ -64,6 +65,14 @@ class App extends React.Component {
     this.fetchSearchResults(suggestion);
   }
 
+  mapSearchResults = (results) => {
+    return results.hits.hit.map((item) => {
+        var obj = item.fields;
+        obj['id'] = item.id;
+        return obj
+      });
+  }
+
   fetchSearchResults = (searchText) => {
     const url = this.searchUrl({q: searchText});
     fetch(url)
@@ -75,13 +84,10 @@ class App extends React.Component {
         // if not, no need to update the results
         return;
       }
-      const searchResults = results.hits.hit.map((item) => {
-        var obj = item.fields;
-        obj['id'] = item.id;
-        return obj
-      });
+      const searchResults = this.mapSearchResults(results);
       this.setState({
         searchResults: searchResults,
+        searchStartIndex: 0,
         suggestionResults: []
       });
     });
@@ -89,6 +95,21 @@ class App extends React.Component {
 
   handleSearchTextSubmit = (e) => {
     this.fetchSearchResults(this.state.searchText);
+  }
+
+  handleMoreSubmit = (e) => {
+    const searchIndex = this.state.searchStartIndex + 10;
+    const url = this.searchUrl({q: this.state.searchText, start: searchIndex});
+    fetch(url)
+    .then(resp => resp.json())
+    .then(results => {
+      const searchResults = this.state.searchResults.concat(this.mapSearchResults(results));
+      this.setState({
+        searchResults: searchResults,
+        searchStartIndex: searchIndex,
+        suggestionResults: []
+      });
+    });
   }
 
   render() {
@@ -104,6 +125,7 @@ class App extends React.Component {
         <SearchResultList
           results={this.state.searchResults}
         />
+        <button onClick={this.handleMoreSubmit}>More</button>
       </div>
     );
   }
