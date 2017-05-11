@@ -3,6 +3,7 @@ import './App.css';
 import SearchUrl from './SearchUrl.js';
 import SearchBar from './SearchBar.js';
 import SearchResultList from './SearchResultList.js';
+import Facets from './Facets.js';
 const queryString = require('query-string');
 
 class App extends React.Component {
@@ -13,6 +14,8 @@ class App extends React.Component {
       searchStartIndex: 0,
       suggestionResults: [],
       searchResults: [],
+      categories: [],
+      styles: []
     };
   }
 
@@ -20,7 +23,9 @@ class App extends React.Component {
     const params = {
       q: searchText,
       start: start,
-      "highlight.description": "{}"
+      "highlight.description": "{}",
+      "facet.style": "{}",
+      "facet.category": "{}"
     };
     return process.env.REACT_APP_SEARCH_URL + "/search/?"
     + queryString.stringify(params);
@@ -97,7 +102,9 @@ class App extends React.Component {
       this.setState({
         searchResults: searchResults,
         searchStartIndex: 0,
-        suggestionResults: []
+        suggestionResults: [],
+        styles: results.facets.style.buckets,
+        categories: results.facets.category.buckets
       });
     });
   }
@@ -116,7 +123,9 @@ class App extends React.Component {
       this.setState({
         searchResults: searchResults,
         searchStartIndex: searchIndex,
-        suggestionResults: []
+        suggestionResults: [],
+        styles: results.facets.style.buckets,
+        categories: results.facets.category.buckets
       });
     });
   }
@@ -133,6 +142,7 @@ class App extends React.Component {
           suggestions={this.state.suggestionResults}
           handleSuggestionClick={this.handleSuggestionClick}
         />
+        <Facets categories={this.state.categories} styles={this.state.styles} />
         <SearchResultList
           results={this.state.searchResults}
         />

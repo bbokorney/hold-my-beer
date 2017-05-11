@@ -1,0 +1,20 @@
+.Facets {
+  display: flex;
+  padding-bottom: 1em;
+  width: 700px;
+  margin: auto;
+}
+
+.Facets-container {
+  width: 700px;
+}
+
+.Facets-title {
+  text-align: left;
+}
+
+.Facets-list {
+  width: 50%;
+  list-style: none;
+  text-align: left;
+}
