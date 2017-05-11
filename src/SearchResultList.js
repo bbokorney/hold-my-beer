@@ -23,7 +23,7 @@ function SearchResultList(props) {
   });
   return (
     <div className="SearchResultList-list">
-      <p>Search results</p>
+      <p></p>
       {listItems}
     </div>
   );
