@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import SearchBar from './SearchBar.js';
 import SearchResultList from './SearchResultList.js';
+const queryString = require('query-string');
 
 class App extends React.Component {
   constructor(props) {
@@ -11,6 +12,16 @@ class App extends React.Component {
       suggestionResults: [],
       searchResults: []
     };
+  }
+
+  searchUrl = (params) => {
+    return process.env.REACT_APP_SEARCH_URL + "/search/?"
+    + queryString.stringify(params);
+  }
+
+  suggestionUrl = (searchText) => {
+    return process.env.REACT_APP_SEARCH_URL + "/suggest/?"
+      + queryString.stringify({suggester: "name", q: searchText});
   }
 
   handleSearchTextInput = (searchText) => {
@@ -29,7 +40,7 @@ class App extends React.Component {
   }
 
   fetchSuggestions = (searchText) => {
-    const url = process.env.REACT_APP_SEARCH_URL + "/suggest/?suggester=name&q=" + searchText;
+    const url = this.suggestionUrl(searchText);
     fetch(url)
     .then(resp => resp.json())
     .then(results => {
@@ -54,7 +65,7 @@ class App extends React.Component {
   }
 
   fetchSearchResults = (searchText) => {
-    const url = process.env.REACT_APP_SEARCH_URL + "/search/?q=" + searchText;
+    const url = this.searchUrl({q: searchText});
     fetch(url)
     .then(resp => resp.json())
     .then(results => {
